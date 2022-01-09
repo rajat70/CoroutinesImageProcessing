@@ -4,6 +4,9 @@ plugins {
 }
 
 android {
+    viewBinding {
+        enabled = true
+    }
     compileSdk 30
 
     defaultConfig {
