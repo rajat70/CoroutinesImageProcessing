@@ -28,6 +28,9 @@ class MainActivity : AppCompatActivity() {
             val deferredJob = coroutineScope.async(Dispatchers.IO) { getOriginalBitmap() }
             val bitmap = deferredJob.await()
             loadImage(bitmap)
+            val filterJob = coroutineScope.async(Dispatchers.Default) { getFilteredImage(bitmap) }
+            val filteredBitmap = filterJob.await()
+            loadImage(filteredBitmap)
         }
     }
 
@@ -41,5 +44,9 @@ class MainActivity : AppCompatActivity() {
         binding.progressBar.isGone = true
         binding.imageView.setImageBitmap(bmp)
         binding.imageView.isVisible = true
+    }
+
+    private fun getFilteredImage(bmp: Bitmap) : Bitmap {
+        return Filter.apply(bmp)
     }
 }
